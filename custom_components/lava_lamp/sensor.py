@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from collections.abc import Callable
+from dataclasses import dataclass
 from typing import Final
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
@@ -19,7 +19,7 @@ from .models import LavaLampState
 
 @dataclass(frozen=True, kw_only=True)
 class LavaLampSensorDescription(SensorEntityDescription):
-    value_fn: Callable[[LavaLampState], int]
+    value_fn: Callable[[LavaLampState], int | str]
 
 
 SENSORS: Final = (
@@ -40,6 +40,12 @@ SENSORS: Final = (
         translation_key="blue",
         icon="mdi:palette",
         value_fn=lambda state: state.blue,
+    ),
+    LavaLampSensorDescription(
+        key="hex",
+        translation_key="hex",
+        icon="mdi:palette",
+        value_fn=lambda state: state.hex,
     ),
 )
 
@@ -82,7 +88,7 @@ class LavaLampSensor(CoordinatorEntity[LavaLampCoordinator], SensorEntity):
         return self.coordinator.data is not None
 
     @property
-    def native_value(self) -> int | None:
+    def native_value(self) -> int | str | None:
         if self.coordinator.data is None:
             return None
         return self.entity_description.value_fn(self.coordinator.data)

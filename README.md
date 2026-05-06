@@ -8,6 +8,9 @@ The integration creates:
 - `sensor.lava_lamp_red`
 - `sensor.lava_lamp_green`
 - `sensor.lava_lamp_blue`
+- `sensor.lava_lamp_hex`
+
+Only one lava lamp connection can be configured at a time.
 
 ## Install With HACS
 

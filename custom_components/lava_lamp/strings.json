@@ -31,6 +31,9 @@
       },
       "blue": {
         "name": "Blue"
+      },
+      "hex": {
+        "name": "Hex"
       }
     }
   }

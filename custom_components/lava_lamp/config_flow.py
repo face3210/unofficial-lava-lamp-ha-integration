@@ -30,13 +30,16 @@ class LavaLampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     ) -> FlowResult:
         errors: dict[str, str] = {}
 
+        if self._async_current_entries():
+            return self.async_abort(reason="already_configured")
+
         if user_input is not None:
             try:
                 url = _validate_url(user_input[CONF_URL])
             except vol.Invalid:
                 errors[CONF_URL] = "invalid_url"
             else:
-                await self.async_set_unique_id(url)
+                await self.async_set_unique_id(DOMAIN)
                 self._abort_if_unique_id_configured()
                 return self.async_create_entry(
                     title="Unofficial Lava Lamp",
