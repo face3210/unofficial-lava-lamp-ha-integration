@@ -1,0 +1,37 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Unofficial Lava Lamp",
+        "description": "Enter the lava lamp API base URL.",
+        "data": {
+          "url": "Server URL"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "Enter a valid http or https URL."
+    },
+    "abort": {
+      "already_configured": "This lava lamp server is already configured."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "live": {
+        "name": "Live"
+      }
+    },
+    "sensor": {
+      "red": {
+        "name": "Red"
+      },
+      "green": {
+        "name": "Green"
+      },
+      "blue": {
+        "name": "Blue"
+      }
+    }
+  }
+}

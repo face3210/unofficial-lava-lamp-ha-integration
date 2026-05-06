@@ -1,0 +1,13 @@
+[project]
+name = "unofficial-lava-lamp-ha-integration"
+version = "0.1.0"
+description = "HACS custom integration for the lava lamp RGB API."
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

@@ -1,0 +1,12 @@
+{
+  "domain": "lava_lamp",
+  "name": "Unofficial Lava Lamp",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://github.com/face3210/unofficial-lava-lamp-ha-integration",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/face3210/unofficial-lava-lamp-ha-integration/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
