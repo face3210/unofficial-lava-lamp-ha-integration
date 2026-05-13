@@ -57,6 +57,7 @@ recorder:
 
 This repository includes a light sync blueprint at
 https://raw.githubusercontent.com/face3210/unofficial-lava-lamp-ha-integration/refs/heads/main/blueprints/automation/lava_lamp_rgb_light.yaml
+
 Import the URL in Home Assistant from **Settings** >
 **Automations & scenes** > **Blueprints** > **Import blueprint**.
 
