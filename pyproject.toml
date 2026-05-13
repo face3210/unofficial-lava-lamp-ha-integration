@@ -9,7 +9,7 @@ dependencies = []
 dev = [
     "aiodns==3.2.0",
     "ha-ffmpeg==3.2.0",
-    "hassil==1.6.1",
+    "hassil==3.5.0",
     "homeassistant==2024.5.1",
     "home-assistant-intents==2024.4.24",
     "josepy<2",

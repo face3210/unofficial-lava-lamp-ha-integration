@@ -642,13 +642,16 @@ wheels = [
 
 [[package]]
 name = "hassil"
-version = "1.6.1"
+version = "3.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pyyaml" },
     { name = "unicode-rbnf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5c/e2/4070eab997f228acccf8bb7f922aa46e9314e8375ab670c947a08f4e28a2/hassil-1.6.1.tar.gz", hash = "sha256:8e43e8d36272e94ab20b962fc0cc3e0c3913f2b1b95dee0488d5440ff247cca7", size = 39445, upload-time = "2024-02-02T22:01:37.211Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/87/bf/9630f99bcc3dca337e3905571d1e06f0317fcc1aec2d3b5a0933b810f9cf/hassil-3.5.0.tar.gz", hash = "sha256:bed39573626d76bfc0681a709a6b64e4de82a680371bd29238473f6711392597", size = 61144, upload-time = "2025-12-02T20:21:08.435Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7a/4e/94d688f7fb23b6e898922a077d7e32a6f412372ff285567d890a8791de7f/hassil-3.5.0-py3-none-any.whl", hash = "sha256:87b2a48164b2de1d693edbe4204b3a7c3b72dc7c5c3829774de8824ecc62ab96", size = 51788, upload-time = "2025-12-02T20:21:07.125Z" },
+]
 
 [[package]]
 name = "home-assistant-bluetooth"
@@ -1423,10 +1426,11 @@ wheels = [
 
 [[package]]
 name = "unicode-rbnf"
-version = "1.0.0"
+version = "2.4.0"
 source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/57/1f/d952ba97832647e608700c36b22d1c4476016076c9ed1ce74ae814bea55a/unicode_rbnf-2.4.0.tar.gz", hash = "sha256:6d2f12a7581c69ea6218ee61fafcd2da46e1f9986bdcd0964c5151f7c2a938ac", size = 89069, upload-time = "2025-10-07T20:59:41.3Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/36/8c/b7cabfc1083f683770d38aa206b3c06eae807f6e1101c7fbfb68e90c8da9/unicode_rbnf-1.0.0-py3-none-any.whl", hash = "sha256:81e4fb66f50c8aa590b555505834405dc61d6230052f6d44a59e820392dd3758", size = 134923, upload-time = "2023-10-31T20:04:02.93Z" },
+    { url = "https://files.pythonhosted.org/packages/4b/21/82f5d435808cba330668a8b69efb180e3ef9739d4998e8cd0381e8c9cb23/unicode_rbnf-2.4.0-py3-none-any.whl", hash = "sha256:0176b30ac9b7b84008d7dc0f23078055dc10d2671fdadfab5747943243e20e2d", size = 141691, upload-time = "2025-10-07T20:59:40.139Z" },
 ]
 
 [[package]]
@@ -1456,7 +1460,7 @@ dev = [
 dev = [
     { name = "aiodns", specifier = "==3.2.0" },
     { name = "ha-ffmpeg", specifier = "==3.2.0" },
-    { name = "hassil", specifier = "==1.6.1" },
+    { name = "hassil", specifier = "==3.5.0" },
     { name = "home-assistant-intents", specifier = "==2024.4.24" },
     { name = "homeassistant", specifier = "==2024.5.1" },
     { name = "josepy", specifier = "<2" },
