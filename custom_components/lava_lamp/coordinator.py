@@ -59,13 +59,15 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
 
     def start(self) -> None:
         if self._task is None or self._task.done():
-            self._task = self.hass.async_create_task(self._run(), name="lava_lamp")
+            self._task = self.hass.async_create_background_task(
+                self._run(), "lava_lamp"
+            )
         if self.emit_delay_seconds > 0 and (
             self._publisher_task is None or self._publisher_task.done()
         ):
-            self._publisher_task = self.hass.async_create_task(
+            self._publisher_task = self.hass.async_create_background_task(
                 self._publish_delayed_states(),
-                name="lava_lamp_delayed_publisher",
+                "lava_lamp_delayed_publisher",
             )
 
     def stop(self) -> None:

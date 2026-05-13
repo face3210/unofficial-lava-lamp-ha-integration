@@ -6,6 +6,10 @@ cd "$(dirname "$0")/.."
 mkdir -p "${PWD}/config"
 mkdir -p "${PWD}/config/custom_components"
 
+[[ -f "${PWD}/config/automations.yaml" ]] || printf "[]\n" > "${PWD}/config/automations.yaml"
+[[ -f "${PWD}/config/scripts.yaml" ]] || printf "{}\n" > "${PWD}/config/scripts.yaml"
+[[ -f "${PWD}/config/scenes.yaml" ]] || printf "[]\n" > "${PWD}/config/scenes.yaml"
+
 if [[ -e "${PWD}/config/custom_components/lava_lamp" && ! -L "${PWD}/config/custom_components/lava_lamp" ]]; then
     rm -rf "${PWD}/config/custom_components/lava_lamp"
 fi

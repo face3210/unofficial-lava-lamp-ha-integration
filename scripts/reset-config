@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-find "${PWD}/config" -mindepth 1 ! -name configuration.yaml -exec rm -rf {} +
+find "${PWD}/config" -mindepth 1 \
+    ! -name configuration.yaml \
+    ! -name automations.yaml \
+    ! -name scripts.yaml \
+    ! -name scenes.yaml \
+    -exec rm -rf {} +

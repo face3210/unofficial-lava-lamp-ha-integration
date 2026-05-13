@@ -8,8 +8,12 @@ dependencies = []
 [dependency-groups]
 dev = [
     "aiodns==3.2.0",
-    "homeassistant==2024.6.0",
+    "ha-ffmpeg==3.2.0",
+    "hassil==1.6.1",
+    "homeassistant==2024.5.1",
+    "home-assistant-intents==2024.4.24",
     "josepy<2",
+    "mutagen==1.47.0",
     "numpy==1.26.0",
     "pycares<5",
     "pytest>=8",

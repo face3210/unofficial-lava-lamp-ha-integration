@@ -28,24 +28,28 @@ SENSORS: Final = (
         key="red",
         translation_key="red",
         icon="mdi:palette",
+        entity_registry_enabled_default=False,
         value_fn=lambda state: state.red,
     ),
     LavaLampSensorDescription(
         key="green",
         translation_key="green",
         icon="mdi:palette",
+        entity_registry_enabled_default=False,
         value_fn=lambda state: state.green,
     ),
     LavaLampSensorDescription(
         key="blue",
         translation_key="blue",
         icon="mdi:palette",
+        entity_registry_enabled_default=False,
         value_fn=lambda state: state.blue,
     ),
     LavaLampSensorDescription(
         key="hex",
         translation_key="hex",
         icon="mdi:palette",
+        entity_registry_enabled_default=False,
         value_fn=lambda state: state.hex,
     ),
     LavaLampSensorDescription(

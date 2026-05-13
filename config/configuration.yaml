@@ -8,9 +8,14 @@ frontend:
 config:
 history:
 logbook:
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
 
 # https://www.home-assistant.io/integrations/logger/
 logger:
   default: info
   logs:
     custom_components.lava_lamp: debug
+
+demo:

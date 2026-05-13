@@ -11,6 +11,9 @@ The integration creates:
 - `sensor.lava_lamp_hex`
 - `sensor.lava_lamp_rgb_list`
 
+The Red, Green, Blue, and Hex sensors are disabled by default for new installs.
+Enable them from the entity registry if you need the individual values.
+
 ## Install With HACS
 
 [![Open your Home Assistant instance and add this repository to HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=face3210&repository=unofficial-lava-lamp-ha-integration&category=integration)
@@ -58,15 +61,17 @@ Import the URL in Home Assistant from **Settings** >
 **Automations & scenes** > **Blueprints** > **Import blueprint**.
 
 The blueprint turns on a selected RGB light while `binary_sensor.lava_lamp_live`
-is on and uses the list output as the light color:
+is on and uses the list output as the light color. Leave the brightness field
+empty to keep the current brightness, or set a percentage from 1 to 100.
 
 ```yaml
-actions:
-  - action: light.turn_on
+action:
+  - service: light.turn_on
     target:
       entity_id: light.example
     data:
       rgb_color: "{{ states('sensor.lava_lamp_rgb_list') | from_json }}"
+      brightness_pct: 75
 ```
 
 ## Manual Install

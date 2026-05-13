@@ -12,7 +12,7 @@ blueprint:
             - domain: binary_sensor
     rgb_list_sensor:
       name: Lava lamp RGB list sensor
-      description: The lava lamp sensor that outputs a JSON RGB list like [100, 255, 0].
+      description: The lava lamp sensor that outputs a RGB list like [100, 255, 0].
       selector:
         entity:
           filter:
@@ -24,30 +24,48 @@ blueprint:
         target:
           entity:
             - domain: light
+    brightness_pct:
+      name: Brightness percentage
+      description: Set brightness from 1 to 100 when updating color. Leave empty to keep the current brightness.
+      default: ""
+      selector:
+        text:
 
 variables:
   live_sensor: !input live_sensor
   rgb_list_sensor: !input rgb_list_sensor
+  brightness_pct: !input brightness_pct
 
 mode: queued
 max_exceeded: silent
 
-triggers:
-  - trigger: state
+trigger:
+  - platform: state
     entity_id: !input live_sensor
     to: "on"
-  - trigger: state
+  - platform: state
     entity_id: !input rgb_list_sensor
 
-conditions:
+condition:
   - condition: state
     entity_id: !input live_sensor
     state: "on"
   - condition: template
     value_template: "{{ states(rgb_list_sensor) not in ['unknown', 'unavailable'] }}"
 
-actions:
-  - action: light.turn_on
-    target: !input target_light
-    data:
-      rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ brightness_pct | string | trim != '' }}"
+        sequence:
+          - service: light.turn_on
+            target: !input target_light
+            data:
+              rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
+              brightness_pct: "{{ brightness_pct | int }}"
+    default:
+      - service: light.turn_on
+        target: !input target_light
+        data:
+          rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
