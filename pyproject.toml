@@ -15,7 +15,7 @@ dev = [
     "josepy<2",
     "mutagen==1.47.0",
     "numpy==1.26.0",
-    "pycares<5",
+    "pycares<6",
     "pytest>=8",
     "pytest-asyncio>=0.23",
     "ruff>=0.8",
