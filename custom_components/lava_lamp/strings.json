@@ -3,17 +3,34 @@
     "step": {
       "user": {
         "title": "Unofficial Lava Lamp",
-        "description": "Enter the lava lamp API base URL.",
+        "description": "Enter the lava lamp API base URL and optional event delay.",
         "data": {
-          "url": "Server URL"
+          "url": "Server URL",
+          "emit_delay_seconds": "Event delay seconds"
         }
       }
     },
     "error": {
-      "invalid_url": "Enter a valid http or https URL."
+      "invalid_url": "Enter a valid http or https URL.",
+      "invalid_input": "Enter a valid URL and a non-negative delay."
     },
     "abort": {
       "already_configured": "This lava lamp server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Unofficial Lava Lamp Options",
+        "description": "Update the lava lamp API base URL and event delay.",
+        "data": {
+          "url": "Server URL",
+          "emit_delay_seconds": "Event delay seconds"
+        }
+      }
+    },
+    "error": {
+      "invalid_input": "Enter a valid URL and a non-negative delay."
     }
   },
   "entity": {
@@ -34,6 +51,9 @@
       },
       "hex": {
         "name": "Hex"
+      },
+      "rgb_list": {
+        "name": "RGB List"
       }
     }
   }

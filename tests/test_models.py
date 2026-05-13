@@ -33,6 +33,7 @@ def test_state_parses_api_response() -> None:
     assert state.red == 12
     assert state.green == 34
     assert state.blue == 56
+    assert state.rgb_list == [12, 34, 56]
     assert state.live is False
 
 

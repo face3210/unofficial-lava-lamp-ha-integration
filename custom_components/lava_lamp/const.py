@@ -1,9 +1,11 @@
 """Constants for the Unofficial Lava Lamp integration."""
 
 DOMAIN = "lava_lamp"
-DEFAULT_BASE_URL = "http://45.61.59.181:8080"
+DEFAULT_BASE_URL = "https://api.neurolavalamp.com"
 
 CONF_URL = "url"
+CONF_EMIT_DELAY_SECONDS = "emit_delay_seconds"
+DEFAULT_EMIT_DELAY_SECONDS = 0.0
 
 FAST_POLL_INTERVAL = 0.25
 OFFLINE_POLL_INTERVAL = 30.0

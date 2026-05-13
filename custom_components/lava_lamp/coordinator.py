@@ -35,21 +35,42 @@ class SSERejectedError(Exception):
 class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
     """Owns lava lamp connection state and entity updates."""
 
-    def __init__(self, hass: HomeAssistant, base_url: str) -> None:
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        base_url: str,
+        emit_delay_seconds: float = 0.0,
+    ) -> None:
         super().__init__(hass, LOGGER, name=DOMAIN, update_method=self._async_update_data)
         self.base_url = base_url.rstrip("/")
+        self.emit_delay_seconds = float(emit_delay_seconds)
+        if self.emit_delay_seconds < 0:
+            raise ValueError("emit_delay_seconds must be non-negative")
         self.session: ClientSession = async_get_clientsession(hass)
         self._task: asyncio.Task[None] | None = None
+        self._publisher_task: asyncio.Task[None] | None = None
+        self._delayed_states: asyncio.Queue[tuple[float, LavaLampState]] = asyncio.Queue()
+        self._latest_accepted_state: LavaLampState | None = None
         self._error_backoff = INITIAL_ERROR_BACKOFF
         self._next_error_log_at = 0.0
 
     def start(self) -> None:
         if self._task is None or self._task.done():
             self._task = self.hass.async_create_task(self._run(), name="lava_lamp")
+        if (
+            self.emit_delay_seconds > 0
+            and (self._publisher_task is None or self._publisher_task.done())
+        ):
+            self._publisher_task = self.hass.async_create_task(
+                self._publish_delayed_states(),
+                name="lava_lamp_delayed_publisher",
+            )
 
     def stop(self) -> None:
         if self._task is not None:
             self._task.cancel()
+        if self._publisher_task is not None:
+            self._publisher_task.cancel()
 
     async def _async_update_data(self) -> LavaLampState:
         return await self._fetch_state()
@@ -86,7 +107,7 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
                 data = parser.feed(raw_line.decode("utf-8").rstrip("\r\n"))
                 if data is None:
                     continue
-                self._set_state(LavaLampState.from_api(json.loads(data)))
+                self._accept_state(LavaLampState.from_api(json.loads(data)))
 
     async def _poll_until_sse_retry(self) -> None:
         deadline = self.hass.loop.time() + SSE_RETRY_INTERVAL
@@ -102,7 +123,7 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
                 continue
 
             self._error_backoff = INITIAL_ERROR_BACKOFF
-            self._set_state(state)
+            self._accept_state(state)
             await asyncio.sleep(_poll_interval_for(state))
 
     async def _fetch_state(self) -> LavaLampState:
@@ -111,8 +132,8 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
             response.raise_for_status()
             return LavaLampState.from_api(await response.json())
 
-    def _set_state(self, state: LavaLampState) -> None:
-        previous = self.data
+    def _accept_state(self, state: LavaLampState) -> None:
+        previous = self._latest_accepted_state
         if previous is not None:
             if state.last_set_unix_ms < previous.last_set_unix_ms:
                 return
@@ -122,7 +143,19 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
                 and state.live == previous.live
             ):
                 return
-        self.async_set_updated_data(state)
+        self._latest_accepted_state = state
+        if self.emit_delay_seconds <= 0:
+            self.async_set_updated_data(state)
+            return
+        self._delayed_states.put_nowait(
+            (self.hass.loop.time() + self.emit_delay_seconds, state)
+        )
+
+    async def _publish_delayed_states(self) -> None:
+        while True:
+            release_at, state = await self._delayed_states.get()
+            await asyncio.sleep(max(0.0, release_at - self.hass.loop.time()))
+            self.async_set_updated_data(state)
 
     def _set_unavailable(self) -> None:
         if self.data is not None:

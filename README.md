@@ -9,8 +9,7 @@ The integration creates:
 - `sensor.lava_lamp_green`
 - `sensor.lava_lamp_blue`
 - `sensor.lava_lamp_hex`
-
-Only one lava lamp connection can be configured at a time.
+- `sensor.lava_lamp_rgb_list`
 
 ## Install With HACS
 
@@ -29,7 +28,46 @@ If the button does not work:
 1. Go to **Settings** > **Devices & services**.
 2. Select **Add Integration**.
 3. Search for **Unofficial Lava Lamp**.
-4. Enter the server URL. The default is `http://45.61.59.181:8080`.
+4. Enter the server URL. The default is `https://api.neurolavalamp.com`.
+5. Optionally set an event delay in seconds to sync with your stream.
+
+To change the server URL or delay later, open the integration options from
+**Settings** > **Devices & services**.
+
+## Recorder
+
+The color entities can update quickly while the lamp is live. To avoid high
+history churn, exclude them from recorder:
+
+```yaml
+recorder:
+  exclude:
+    entities:
+      - sensor.lava_lamp_red
+      - sensor.lava_lamp_green
+      - sensor.lava_lamp_blue
+      - sensor.lava_lamp_hex
+      - sensor.lava_lamp_rgb_list
+```
+
+## Blueprint
+
+This repository includes a light sync blueprint at
+https://raw.githubusercontent.com/face3210/unofficial-lava-lamp-ha-integration/refs/heads/main/blueprints/automation/lava_lamp_rgb_light.yaml
+Import the URL in Home Assistant from **Settings** >
+**Automations & scenes** > **Blueprints** > **Import blueprint**.
+
+The blueprint turns on a selected RGB light while `binary_sensor.lava_lamp_live`
+is on and uses the list output as the light color:
+
+```yaml
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.example
+    data:
+      rgb_color: "{{ states('sensor.lava_lamp_rgb_list') | from_json }}"
+```
 
 ## Manual Install
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Final
@@ -46,6 +47,12 @@ SENSORS: Final = (
         translation_key="hex",
         icon="mdi:palette",
         value_fn=lambda state: state.hex,
+    ),
+    LavaLampSensorDescription(
+        key="rgb_list",
+        translation_key="rgb_list",
+        icon="mdi:palette",
+        value_fn=lambda state: json.dumps(state.rgb_list),
     ),
 )
 

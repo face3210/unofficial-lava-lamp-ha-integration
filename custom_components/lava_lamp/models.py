@@ -27,6 +27,10 @@ class LavaLampState:
     def blue(self) -> int:
         return self.rgb[2]
 
+    @property
+    def rgb_list(self) -> list[int]:
+        return list(self.rgb)
+
     @classmethod
     def from_api(cls, data: dict[str, Any]) -> "LavaLampState":
         rgb = data.get("rgb")

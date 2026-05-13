@@ -1,0 +1,53 @@
+blueprint:
+  name: Lava Lamp RGB Light Sync
+  description: Set an RGB light to the lava lamp color while the stream is live.
+  domain: automation
+  input:
+    live_sensor:
+      name: Lava lamp live sensor
+      description: The binary sensor that is on while the stream is live.
+      selector:
+        entity:
+          filter:
+            - domain: binary_sensor
+    rgb_list_sensor:
+      name: Lava lamp RGB list sensor
+      description: The lava lamp sensor that outputs a JSON RGB list like [100, 255, 0].
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    target_light:
+      name: Light
+      description: The RGB light to keep in sync.
+      selector:
+        target:
+          entity:
+            - domain: light
+
+variables:
+  live_sensor: !input live_sensor
+  rgb_list_sensor: !input rgb_list_sensor
+
+mode: queued
+max_exceeded: silent
+
+triggers:
+  - trigger: state
+    entity_id: !input live_sensor
+    to: "on"
+  - trigger: state
+    entity_id: !input rgb_list_sensor
+
+conditions:
+  - condition: state
+    entity_id: !input live_sensor
+    state: "on"
+  - condition: template
+    value_template: "{{ states(rgb_list_sensor) not in ['unknown', 'unavailable'] }}"
+
+actions:
+  - action: light.turn_on
+    target: !input target_light
+    data:
+      rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
