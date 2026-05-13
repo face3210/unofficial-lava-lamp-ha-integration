@@ -9,7 +9,7 @@ The integration creates:
 - `sensor.lava_lamp_green`
 - `sensor.lava_lamp_blue`
 - `sensor.lava_lamp_hex`
-- `sensor.lava_lamp_rgb_list`
+- `sensor.lava_lamp_rgb`
 
 The Red, Green, Blue, and Hex sensors are disabled by default for new installs.
 Enable them from the entity registry if you need the individual values.
@@ -50,7 +50,7 @@ recorder:
       - sensor.lava_lamp_green
       - sensor.lava_lamp_blue
       - sensor.lava_lamp_hex
-      - sensor.lava_lamp_rgb_list
+      - sensor.lava_lamp_rgb
 ```
 
 ## Blueprint
@@ -70,7 +70,7 @@ action:
     target:
       entity_id: light.example
     data:
-      rgb_color: "{{ states('sensor.lava_lamp_rgb_list') | from_json }}"
+      rgb_color: "{{ states('sensor.lava_lamp_rgb') | from_json }}"
       brightness_pct: 75
 ```
 
