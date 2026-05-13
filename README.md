@@ -71,7 +71,7 @@ action:
     target:
       entity_id: light.example
     data:
-      rgb_color: "{{ states('sensor.lava_lamp_rgb') | from_json }}"
+      rgb_color: "{{ states('sensor.lava_lamp_rgb') }}"
       brightness_pct: 75
 ```
 

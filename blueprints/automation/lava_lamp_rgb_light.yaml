@@ -62,10 +62,10 @@ action:
           - service: light.turn_on
             target: !input target_light
             data:
-              rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
+              rgb_color: "{{ states(rgb_list_sensor) }}"
               brightness_pct: "{{ brightness_pct | int }}"
     default:
       - service: light.turn_on
         target: !input target_light
         data:
-          rgb_color: "{{ states(rgb_list_sensor) | from_json }}"
+          rgb_color: "{{ states(rgb_list_sensor) }}"
