@@ -1,6 +1,5 @@
 {
   "name": "Unofficial Lava Lamp",
   "render_readme": true,
-  "homeassistant": "2024.5.1",
-  "domains": ["binary_sensor", "sensor"]
+  "homeassistant": "2024.5.1"
 }
