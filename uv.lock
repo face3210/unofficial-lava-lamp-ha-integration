@@ -664,11 +664,11 @@ wheels = [
 
 [[package]]
 name = "home-assistant-intents"
-version = "2024.4.24"
+version = "2026.5.5"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e3/2b/2e23e8cefb4a09e5973f13b56824790686df52051471bd17b9ec8486814b/home-assistant-intents-2024.4.24.tar.gz", hash = "sha256:a15db5a323454c3db9219534d75096969d23f47fa76abbde6e3b55cac24cbef8", size = 252104, upload-time = "2024-04-24T16:15:27.611Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/6a/33d9f9022315abbb550cdeabe0023e67ccf2dcd455f37a6e2281b538fab7/home_assistant_intents-2026.5.5.tar.gz", hash = "sha256:c009202de1f36c6f047480879018412c42b4ed84ee0d4931e6a0afe20cdc7b3e", size = 2880221, upload-time = "2026-05-05T14:51:23.5Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/32/2bc76a7fdef1459b2c61821a5670724bb8a55f5fd6f6b6db8d9083c0ac33/home_assistant_intents-2024.4.24-py3-none-any.whl", hash = "sha256:6e07c022f4767f3dc7ad0f8ddc6cf225276fed1c3ea100621ef98c76def244d6", size = 282480, upload-time = "2024-04-24T16:15:25.676Z" },
+    { url = "https://files.pythonhosted.org/packages/1d/e2/86114fee07a923c8dc1265a24ed4c4235803a2369c212b28da58c1db6468/home_assistant_intents-2026.5.5-py3-none-any.whl", hash = "sha256:9681214c1ff2ecc8e99961f56e5f0f07cba328129b07ebe8768fb5e8511c6664", size = 2905038, upload-time = "2026-05-05T14:51:21.602Z" },
 ]
 
 [[package]]
@@ -1457,7 +1457,7 @@ dev = [
     { name = "aiodns", specifier = "==3.2.0" },
     { name = "ha-ffmpeg", specifier = "==3.2.0" },
     { name = "hassil", specifier = "==1.6.1" },
-    { name = "home-assistant-intents", specifier = "==2024.4.24" },
+    { name = "home-assistant-intents", specifier = "==2026.5.5" },
     { name = "homeassistant", specifier = "==2024.5.1" },
     { name = "josepy", specifier = "<2" },
     { name = "mutagen", specifier = "==1.47.0" },
