@@ -12,7 +12,7 @@ dev = [
     "hassil==1.6.1",
     "homeassistant==2024.5.1",
     "home-assistant-intents==2024.4.24",
-    "josepy<2",
+    "josepy<3",
     "mutagen==1.47.0",
     "numpy==1.26.0",
     "pycares<5",
