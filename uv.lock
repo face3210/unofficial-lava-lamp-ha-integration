@@ -584,14 +584,14 @@ wheels = [
 
 [[package]]
 name = "ha-ffmpeg"
-version = "3.2.0"
+version = "3.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "async-timeout" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8a/57/bbc2b0416cef099f124eec624002f667f040727e8ff858b3994552f1c41a/ha-ffmpeg-3.2.0.tar.gz", hash = "sha256:156f1696b8552feaf2ba91c02a28bc7ca064bbfeaec5dc35b8b08a52cce43f9d", size = 7614, upload-time = "2024-03-13T21:58:22.496Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1e/3b/bd1284a9bc39cc119b0da551a81be6cf30dc3cfb369ce8c62fb648d7a2ea/ha_ffmpeg-3.2.2.tar.gz", hash = "sha256:80e4a77b3eda73df456ec9cc3295a898ed7cbb8cd2d59798f10e8c10a8e6c401", size = 7608, upload-time = "2024-11-08T13:32:14.181Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/69/5f/f7efe7f8edee56b6ebff63ede004b74d7b7a4305f7fa8e9bc3b1936bff82/ha_ffmpeg-3.2.0-py3-none-any.whl", hash = "sha256:a8c685963756a5a964a01c8bd4b91ce3d0aac544485a29df5a9f3a259b56d514", size = 8730, upload-time = "2024-03-13T21:58:20.988Z" },
+    { url = "https://files.pythonhosted.org/packages/45/66/7863e5a3713bb71c02f050f14a751b02e7a2d50eaf2109c96a1202e65d8b/ha_ffmpeg-3.2.2-py3-none-any.whl", hash = "sha256:4fd4a4f4cdaf3243d2737942f3f41f141e4437d2af1167655815dc03283b1652", size = 8749, upload-time = "2024-11-08T13:32:12.69Z" },
 ]
 
 [[package]]
@@ -1455,7 +1455,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "aiodns", specifier = "==3.2.0" },
-    { name = "ha-ffmpeg", specifier = "==3.2.0" },
+    { name = "ha-ffmpeg", specifier = "==3.2.2" },
     { name = "hassil", specifier = "==1.6.1" },
     { name = "home-assistant-intents", specifier = "==2024.4.24" },
     { name = "homeassistant", specifier = "==2024.5.1" },
