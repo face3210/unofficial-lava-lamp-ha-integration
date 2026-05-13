@@ -1,6 +1,18 @@
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.ruff_cache/
-.mypy_cache/
-.venv/
+# artifacts
+__pycache__
+.pytest*
+*.egg-info
+*/build/*
+*/dist/*
+
+# misc
+.coverage
+.mypy_cache
+.ruff_cache
+.venv
+.vscode
+coverage.xml
+
+# Home Assistant configuration
+config/*
+!config/configuration.yaml

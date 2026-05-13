@@ -63,7 +63,6 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up lava lamp RGB sensors."""
-
     coordinator: LavaLampCoordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_entities(
         [LavaLampSensor(coordinator, entry, description) for description in SENSORS]

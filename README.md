@@ -74,3 +74,78 @@ actions:
 Copy `custom_components/lava_lamp` into your Home Assistant
 `custom_components` directory, restart Home Assistant, then add the integration
 from **Devices & services**.
+
+## Repository Layout
+
+```text
+custom_components/lava_lamp/      Home Assistant custom integration
+blueprints/automation/            Optional light sync blueprint
+config/configuration.yaml         Local development Home Assistant config
+scripts/                          Development helper commands
+tests/                            Pytest test suite
+```
+
+## Development
+
+This repository includes a development container modeled after
+[`integration_blueprint`](https://github.com/ludeeus/integration_blueprint). It
+installs Python 3.12, `uv`, Ruff, Home Assistant, and the VS Code extensions used
+for local integration work.
+
+From the development container:
+
+```bash
+scripts/setup
+scripts/develop
+```
+
+`scripts/develop` starts a standalone Home Assistant instance with
+`config/configuration.yaml` and loads `custom_components/lava_lamp` from this
+repository by linking it into `config/custom_components/lava_lamp`.
+
+If the local Home Assistant instance has stale onboarding entries or integrations
+from earlier runs, reset the generated config files and start again:
+
+```bash
+scripts/reset-config
+scripts/develop
+```
+
+If you are working outside the container, install
+[`uv`](https://docs.astral.sh/uv/) and run:
+
+```bash
+uv sync --all-groups
+uv run hass --config ./config --debug
+```
+
+## Linting And Tests
+
+Ruff is used for both linting and formatting:
+
+```bash
+scripts/lint
+uv run ruff check .
+uv run ruff format . --check
+```
+
+Run the test suite with:
+
+```bash
+scripts/test
+uv run pytest
+```
+
+## Validation
+
+GitHub Actions runs:
+
+- Ruff lint and format checks.
+- Pytest.
+- Home Assistant `hassfest` validation.
+- HACS validation for the integration category.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, linting, testing, and issue
+reporting guidance.

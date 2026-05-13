@@ -19,7 +19,6 @@ PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Unofficial Lava Lamp from a config entry."""
-
     coordinator = LavaLampCoordinator(
         hass,
         entry.options.get(CONF_URL, entry.data[CONF_URL]),
@@ -39,7 +38,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-
     coordinator: LavaLampCoordinator = hass.data[DOMAIN][entry.entry_id]
     coordinator.stop()
 
@@ -52,5 +50,4 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Reload the integration when options change."""
-
     await hass.config_entries.async_reload(entry.entry_id)

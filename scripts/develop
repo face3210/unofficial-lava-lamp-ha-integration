@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+mkdir -p "${PWD}/config"
+mkdir -p "${PWD}/config/custom_components"
+
+if [[ -e "${PWD}/config/custom_components/lava_lamp" && ! -L "${PWD}/config/custom_components/lava_lamp" ]]; then
+    rm -rf "${PWD}/config/custom_components/lava_lamp"
+fi
+
+ln -sfn "${PWD}/custom_components/lava_lamp" "${PWD}/config/custom_components/lava_lamp"
+
+export PYTHONPATH="${PWD}/custom_components${PYTHONPATH:+:${PYTHONPATH}}"
+
+uv run hass --config "${PWD}/config" --debug

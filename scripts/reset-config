@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+find "${PWD}/config" -mindepth 1 ! -name configuration.yaml -exec rm -rf {} +

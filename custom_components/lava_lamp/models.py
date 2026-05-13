@@ -5,6 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+RGB_CHANNEL_COUNT = 3
+RGB_CHANNEL_MAX = 255
+
 
 @dataclass(frozen=True, slots=True)
 class LavaLampState:
@@ -32,13 +35,13 @@ class LavaLampState:
         return list(self.rgb)
 
     @classmethod
-    def from_api(cls, data: dict[str, Any]) -> "LavaLampState":
+    def from_api(cls, data: dict[str, Any]) -> LavaLampState:
         rgb = data.get("rgb")
-        if not isinstance(rgb, list | tuple) or len(rgb) != 3:
+        if not isinstance(rgb, list | tuple) or len(rgb) != RGB_CHANNEL_COUNT:
             raise ValueError("rgb must be a three-item list")
 
         rgb_tuple = tuple(int(channel) for channel in rgb)
-        if any(channel < 0 or channel > 255 for channel in rgb_tuple):
+        if any(channel < 0 or channel > RGB_CHANNEL_MAX for channel in rgb_tuple):
             raise ValueError("rgb channels must be between 0 and 255")
 
         return cls(

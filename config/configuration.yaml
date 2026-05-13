@@ -1,0 +1,16 @@
+# https://www.home-assistant.io/integrations/homeassistant/
+homeassistant:
+  debug: true
+
+# Keep local development focused on this integration. `default_config` starts a
+# large set of unrelated integrations that pull optional runtime dependencies.
+frontend:
+config:
+history:
+logbook:
+
+# https://www.home-assistant.io/integrations/logger/
+logger:
+  default: info
+  logs:
+    custom_components.lava_lamp: debug

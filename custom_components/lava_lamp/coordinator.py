@@ -7,7 +7,6 @@ import json
 import logging
 
 from aiohttp import ClientError, ClientSession, ClientTimeout
-
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -41,7 +40,9 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
         base_url: str,
         emit_delay_seconds: float = 0.0,
     ) -> None:
-        super().__init__(hass, LOGGER, name=DOMAIN, update_method=self._async_update_data)
+        super().__init__(
+            hass, LOGGER, name=DOMAIN, update_method=self._async_update_data
+        )
         self.base_url = base_url.rstrip("/")
         self.emit_delay_seconds = float(emit_delay_seconds)
         if self.emit_delay_seconds < 0:
@@ -49,7 +50,9 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
         self.session: ClientSession = async_get_clientsession(hass)
         self._task: asyncio.Task[None] | None = None
         self._publisher_task: asyncio.Task[None] | None = None
-        self._delayed_states: asyncio.Queue[tuple[float, LavaLampState]] = asyncio.Queue()
+        self._delayed_states: asyncio.Queue[tuple[float, LavaLampState]] = (
+            asyncio.Queue()
+        )
         self._latest_accepted_state: LavaLampState | None = None
         self._error_backoff = INITIAL_ERROR_BACKOFF
         self._next_error_log_at = 0.0
@@ -57,9 +60,8 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
     def start(self) -> None:
         if self._task is None or self._task.done():
             self._task = self.hass.async_create_task(self._run(), name="lava_lamp")
-        if (
-            self.emit_delay_seconds > 0
-            and (self._publisher_task is None or self._publisher_task.done())
+        if self.emit_delay_seconds > 0 and (
+            self._publisher_task is None or self._publisher_task.done()
         ):
             self._publisher_task = self.hass.async_create_task(
                 self._publish_delayed_states(),
@@ -94,7 +96,9 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
             sock_connect=10.0,
             sock_read=HEARTBEAT_TIMEOUT,
         )
-        async with self.session.get(self._url("/v1/events"), timeout=timeout) as response:
+        async with self.session.get(
+            self._url("/v1/events"), timeout=timeout
+        ) as response:
             if response.status in SSE_REJECTED_STATUSES:
                 raise SSERejectedError(f"SSE rejected with HTTP {response.status}")
             response.raise_for_status()
@@ -195,8 +199,7 @@ class _SSEEvent:
             return None
 
         field, _, value = line.partition(":")
-        if value.startswith(" "):
-            value = value[1:]
+        value = value.removeprefix(" ")
         if field == "data":
             self._data.append(value)
         return None
