@@ -18,7 +18,7 @@ dev = [
     "pycares<5",
     "pytest>=8",
     "pytest-asyncio>=0.23",
-    "ruff>=0.8",
+    "ruff>=0.15.13",
 ]
 
 [tool.pytest.ini_options]
