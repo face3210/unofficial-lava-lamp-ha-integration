@@ -139,7 +139,7 @@ class LavaLampCoordinator(DataUpdateCoordinator[LavaLampState | None]):
             return LavaLampState.from_api(await response.json())
 
     def _accept_state(self, state: LavaLampState) -> None:
-        previous = self._latest_accepted_state
+        previous = None if self.data is None else self._latest_accepted_state
         if previous is not None:
             if state.last_set_unix_ms < previous.last_set_unix_ms:
                 return
